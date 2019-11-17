@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ookayama Campus Map</title>
+</head>
+<body>
+  <svg width="1" height="1" z-index="10" overflow="visible">
+    <image xlink:href="../static/map.jpg" alt="map" height: 100vh width:auto onclick="position(event); chselect(event); dist(event);" >
+  </svg>
+  <svg width="100" height="100" z-index="10" overflow="visible">
+    {% for it in range(x1|length) %}
+    <line  opacity=1 x1="{{x1[it]}}" y1="{{y1[it]}}" x2="{{x2[it]}}" y2="{{y2[it]}}" style="stroke:rgb(0,0,255);stroke-width:2"
+      stroke-dasharray="3 1" />
+    {% endfor %}
+  </svg>
+  <form action="/" method="POST" style="position:absolute;top:0;left:0;">
+    <input type="text" name="from" placeholder="From" id="" autocomplete="off" autofocus="true">
+    <input type="text" name="to" id="" placeholder="To" autocomplete="off" autofocus="true">
+    <button type="submit">Submit</button>
+  </form>
+  <div id="distance" style="position:absolute;top:30px;left:0;">The distance is about: {{ dist }} [m]</div>
+</body>
+</html>
