@@ -32,6 +32,7 @@ def index():
     dest = request.form.get("to")
     ds = Dijkstra(source, dest, south)
     distance = ds["dist"]
+    distance = int(100*distance)/100
     paths = ds["path"]
     ways = []
     file3= open("building.csv","r")
@@ -47,4 +48,4 @@ def index():
     return render_template("index.html",x1 = x1, x2=x2, y1=y1, y2=y2, dist=distance*0.5)
 
   else:
-    return render_template("try.html",vals = [])
+    return render_template("index.html")
