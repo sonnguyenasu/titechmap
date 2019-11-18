@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Backend Admin</title>
+</head>
+<body>
+  <!-- <svg width="1" height="1" z-index="10" overflow="visible"> -->
+    <img src="../static/map.jpg" alt="map" style="position:absolute;top:100px;left:0;cursor: pointer; z-index: -1;" onclick="position(event); chselect(event); dist(event);" />
+  <!-- </svg> -->
+  <svg width="100" height="100" z-index="10" overflow="visible">
+    {% for it in range(x1|length) %}
+    <line  opacity=1 x1="{{x1[it]}}" y1="{{y1[it]}}" x2="{{x2[it]}}" y2="{{y2[it]}}" style="stroke:rgb(255,0,0);stroke-width:2"
+      stroke-dasharray="3 1" />
+    {% endfor %}
+  </svg>
+  <form action="/administrator" method="POST" style="position: absolute; top:0; left:500px;">
+  <p>Building Declaration</p>
+  <input type="text" placeholder="entrance name" autocomplete="off"  name="bName" id="bName">
+  <input type="text" placeholder="posX" autocomplete="off" name="posX" id="posX">
+  <input type="text" placeholder="posY" autocomplete="off" name="posY" id="posY">
+  <button type="submit">Submit</button>
+  </form>
+
+    <form action="/administrator" method="POST" style="position: absolute; top:100; left:500px;">
+      <p>Building Connection declaration</p>
+      <input type="text" placeholder="building1" autocomplete="off" name="first">
+      <input type="text" placeholder="building2" autocomplete="off" name="second">
+      <!-- <input type="text" placeholder="distance" autocomplete="off" name="distance" id="dist"> -->
+      <button type="submit">Submit</button>
+    </form>
+	<form action="/logout">
+	  <button type="submit">Log out</button>
+	</form>
+  {% if success %}
+  <p>Successfully registered!</p>
+  {% endif %}
+  <script>
+    var distance = 0, prevX, prevY, count = 0, select = false;
+    function position(event){
+      
+      document.getElementById("posX").value = event.clientX - 10; 
+      document.getElementById("posY").value = event.clientY - 10;
+    }
+    function chselect(event){
+      select = !select;
+    }
+    function dist(event){
+      if (select) {
+        (distance += Math.sqrt((event.clientX - prevX) * (event.clientX - prevX) + (event.clientY - prevY) * (event.clientY - prevY)));
+        distance = Math.floor(100*distance);
+        distance = distance / 100;
+      }
+      else{
+        prevX = event.clientX;
+        prevY = event.clientY;
+      }
+      document.getElementById("dist").value = distance;
+      distance = 0;
+      
+    }
+  </script>
+</body>
+</html>
