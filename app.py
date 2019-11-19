@@ -180,3 +180,6 @@ def backend():
     file3.close()
     file.close()
     return render_template("backend.html", success=True, x1 = x1, x2 = x2, y1 = y1, y2=y2)
+
+if __name__=="__main__":
+  app.run(debug=True)
